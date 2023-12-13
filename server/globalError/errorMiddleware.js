@@ -38,6 +38,8 @@ const prodError = (err, res) => {
 module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
+    err.message = err.message || 'something went wrong';
+    // console.log("from module.exports", err)
 
    if(process.env.NODE_ENV === 'development')
     {
@@ -45,8 +47,9 @@ module.exports = (err, req, res, next) => {
     }
     if(process.env.NODE_ENV === 'production')
         {
-            // console.log("err", err)
-            let error = {...err}
+
+            const message = err.message; // to display the message in the response
+            let error = {...err, message}
 
             // console.log("\n\n------ begin: ------");
             // console.log("ERROR: ", error);

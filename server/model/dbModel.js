@@ -3,7 +3,7 @@ const pool = require('./database');
 
 const saltRounds = 6;
 
-exports.createUser = async (firstname, lastname, username, email, password, callback) => {
+exports.registerUser = async (firstname, lastname, username, email, password, callback) => {
     //creating the query in sql syntax
     const query = `
         INSERT INTO user (firstname, lastname, username, email, password)
@@ -17,7 +17,7 @@ exports.createUser = async (firstname, lastname, username, email, password, call
         const values = [firstname, lastname, username, email, encryptedPw];
 
         pool.query(query, values, (err, result) => {
-            if(!err){
+            if(err){
                 
                 callback(err);
                 return;
@@ -58,4 +58,21 @@ exports.getAllUsers = (callback) => {
         callback(result);
     })
     // return callback(pool);
+}
+
+exports.logIn = (email, password, callback) => {
+    const query =  `
+    SELECT * FROM user 
+    WHERE email = ?
+    `
+    const value = [email];
+
+    // 
+    pool.query(query, value, (err, data) => {
+        if(err){
+            callback(err)
+            return;
+        }
+        return callback(null, data);
+    })
 }
