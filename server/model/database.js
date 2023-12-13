@@ -9,4 +9,19 @@ const pool = mysql.createConnection({
 })
 
 
+//array database
+// let pool = [
+//     {
+//         id: 1,
+//         firstname: 'Wisdom',
+//         lastname: 'peters',
+//         username: 'wizzy',
+//         email: 'drmuzik@gmail.com',
+//         password: '12345'
+//     }
+// ]
+
+
+
+
 module.exports = pool;
