@@ -3,6 +3,8 @@ const database = require('../model/dbModel');
 const catchAsync = require('../utils/catchAsync');
 const bcrypt = require('bcrypt');
 const CustomError = require('../utils/customError');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // exports.signup = catchAsync(async (req, res, next) => {
     
@@ -45,37 +47,56 @@ exports.signIn = (req, res, next) => {
     const {email, password} = req.body;
 
     database.logIn(email, password, (err ,data) => {
-        
         //check if email exists in database
         if(data?.length > 0 ){
             //if it exists, compare the inputted password and password in database
             bcrypt.compare(password.toString(), data[0].password, (error, same) =>{
                 //if password after being compared is the same send data
                 if(same){
-                    // let userDetails = data[0];
+                    //generate token
+                    const id = data[0].id;
+                    const token = jwt.sign({id}, process.env.JWT_SECRET_KEY, {expiresIn: process.env.JWT_KEY_EXPIRES});
+
+                    //store the token in a cookie variable called 'token'
+                    res.cookie(process.env.COOKIE_TOKEN, token);
+
+                    //not displaying password in the response data by destructuring it out
                     const {password, ...userDetails} = data[0];
+
                     res.status(200).send({
-                        message: 'success',
+                        message: 'successfully logged in!',
                         data: {
                             result: userDetails
-                        }
+                        },
+                        token: token
                     });
-                }
-                else {
-                    //if password after being compareed is !same, send error message and status code
-                    const message = "invalid email or password";
-                    const Err = new CustomError(message, 404);
-                    next(Err);
-                }
+                }else{
+                    const err = {message: "invalid email or password", name: "password"}
+                    next(err);
+                    }
             })
             
         }
         //if email does not exists
         else{
-           const message = "invalid email or password";
-            const Err = new CustomError(message, 404);
-            next(Err);
+            const err = {message: "invalid email or password", name: "email"}
+            next(err);
         }
         
+    })
+}
+
+exports.protectRoute = (req, res, next) => {
+    const token = req.cookies.token;
+    
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+        if(err || !token) {
+            //if the token has expired || if it is empty
+            next(err);
+        }else {
+            req.id = decoded.id;
+            // console.log(decoded);
+            next();
+        }
     })
 }

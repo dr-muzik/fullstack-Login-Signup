@@ -69,8 +69,13 @@ exports.logIn = (email, password, callback) => {
 
     // 
     pool.query(query, value, (err, data) => {
-        if(err){
-            callback(err)
+        // if(err){
+        //     callback(err)
+        //     return;
+        // }
+        if (err || data.length === 0 ) {
+            // No user found with the provided email
+            callback(err);
             return;
         }
         return callback(null, data);

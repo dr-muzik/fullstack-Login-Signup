@@ -12,6 +12,16 @@ const handleDuplicateEntry = (state) => {
     return new CustomError(message, 409);
 }
 
+const handleJWTErr = () => {
+    const message = "You're not authenticated, please kindly login";
+    return new CustomError(message, 401);
+}
+
+const handleLogin = () => {
+    const message = "Invalid email or password";
+    return new CustomError(message, 400);
+}
+
 const devError = (err, res) => {
         res.status(err.statusCode).send({
             message: err.message,
@@ -36,9 +46,9 @@ const prodError = (err, res) => {
 }
 
 module.exports = (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
-    err.status = err.status || 'error';
-    err.message = err.message || 'something went wrong';
+    err.statusCode = err?.statusCode || 500;
+    err.status = err?.status || 'error';
+    err.message = err?.message || 'something went wrong';
     // console.log("from module.exports", err)
 
    if(process.env.NODE_ENV === 'development')
@@ -57,6 +67,14 @@ module.exports = (err, req, res, next) => {
 
             if(error.code === 'ER_DUP_ENTRY') {
                 error = handleDuplicateEntry(error.sqlMessage);
+            }
+
+            if(error.name === 'JsonWebTokenError' || "TokenExpiredError") {
+                error = handleJWTErr();
+            }
+
+            if(error.name === 'email' || "password") {
+                error = handleLogin();
             }
 
 
