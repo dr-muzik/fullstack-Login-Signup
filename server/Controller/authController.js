@@ -24,23 +24,27 @@ require('dotenv').config();
 
 
 exports.signup = (req, res, next) => {
-    const {firstname, lastname, username, email, password } = req.body;
+    const {firstname, lastname, username, email, password} = req.body;
 
-    database.registerUser(firstname, lastname, username, email, password,  (err, insertId) => {
-        if(err){
-            return next(err);
-        }
-        res.status(201).send({
-            message: 'success',
-            data: {
-               id: insertId,
-            firstname,
-            lastname,
-            username,
-            email,
+    
+
+        database.registerUser(firstname, lastname, username, email, password,  (err, insertId) => {
+            if(err){
+                return next(err);
             }
+            res.status(201).send({
+                message: 'success',
+                data: {
+                   id: insertId,
+                firstname,
+                lastname,
+                username,
+                email,
+                }
+            })
         })
-    })
+    
+
 }
 
 exports.signIn = (req, res, next) => {
@@ -71,7 +75,7 @@ exports.signIn = (req, res, next) => {
                         token: token
                     });
                 }else{
-                    const err = {message: "invalid email or password", name: "password"}
+                    let err = {message: "invalid email or password", name: "password"}
                     next(err);
                     }
             })
@@ -79,7 +83,7 @@ exports.signIn = (req, res, next) => {
         }
         //if email does not exists
         else{
-            const err = {message: "invalid email or password", name: "email"}
+            let err = {message: "invalid email or password"};
             next(err);
         }
         
@@ -99,4 +103,42 @@ exports.protectRoute = (req, res, next) => {
             next();
         }
     })
+}
+
+exports.validation = (req, res, next) => {
+    const {password, confirmPassword, email} = req.body;
+
+    // Regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if (!email || !emailRegex.test(email)) {
+    //   return res.status(400).json({ error: 'Invalid email address' });
+        // const message = "Invalid email address";
+        let err = {message: "Invalid email address"}
+        next(err);
+    }
+    if(password?.length === 0 && confirmPassword?.length === 0){
+        const message = "Password fields cannot be empty!";
+        const error = new CustomError(message, 400);
+        next(error)
+    }
+     if(password?.length === 0 && confirmPassword?.length !== 0){
+        const message = "Please input password";
+        const error = new CustomError(message, 400);
+        next(error)
+    }
+    if (confirmPassword?.length === 0 && password?.length !== 0 ){
+        const message = "Please input confirm password";
+        const error = new CustomError(message, 400);
+        next(error)
+    }
+    if(((password?.length && confirmPassword?.length) !== 0) && (password !== confirmPassword)){
+        const message = "Passwords do not match";
+        const error = new CustomError(message, 400);
+        next(error);
+    }
+   
+  
+    // If the email, password and confirm password is valid, pass control to the next middleware or route handler
+    next();
 }

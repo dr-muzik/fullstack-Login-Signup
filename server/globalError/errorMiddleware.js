@@ -14,12 +14,24 @@ const handleDuplicateEntry = (state) => {
 
 const handleJWTErr = () => {
     const message = "You're not authenticated, please kindly login";
+    // const message = err;
     return new CustomError(message, 401);
 }
 
 const handleLogin = () => {
     const message = "Invalid email or password";
     return new CustomError(message, 400);
+}
+
+const handlePasswords = (err) => {
+   
+        const message = err;
+        return new CustomError(message, 409);
+    
+    // else if(message === "Please input confirm password"){
+    //     const message = "Please input confirm password";
+    //     return new CustomError(message, 409);
+    // }
 }
 
 const devError = (err, res) => {
@@ -57,27 +69,36 @@ module.exports = (err, req, res, next) => {
     }
     if(process.env.NODE_ENV === 'production')
         {
-
-            const message = err.message; // to display the message in the response
+            // console.log(err);
+            console.log("\n\n------ begin: ------");
+            console.log("ERROR: ", err);
+            console.log("------ end: ------\n\n");
+            const message = err.message; 
+            // to display the message in the response
             let error = {...err, message}
+            console.log("before the handlers: ", error)
 
-            // console.log("\n\n------ begin: ------");
-            // console.log("ERROR: ", error);
-            // console.log("------ end: ------\n\n");
+            
+// console.log(error.code)
 
             if(error.code === 'ER_DUP_ENTRY') {
                 error = handleDuplicateEntry(error.sqlMessage);
             }
-
-            if(error.name === 'JsonWebTokenError' || "TokenExpiredError") {
-                error = handleJWTErr();
+            if(error.message === 'Passwords do not match' || 'Please input confirm password' || "Please input password" || "Password fields cannot be empty!" || "Invalid email address"){
+                error = handlePasswords(error.message);
             }
 
-            if(error.name === 'email' || "password") {
+
+            if(error.message === "invalid email or password") {
                 error = handleLogin();
             }
 
-
+            //I don't understand but if I use '||' for or statement, the code breaks and
+            //only calls the handleJWTErr() irrespective of the error type
+            if(error.name === "JsonWebTokenError" | "TokenExpiredError") {
+                error = handleJWTErr();
+            }
+            // console.log("from production", error);
             prodError(error, res);
         }
 

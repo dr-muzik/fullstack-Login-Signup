@@ -46,6 +46,22 @@ exports.registerUser = async (firstname, lastname, username, email, password, ca
 // }
 // }
 
+
+exports.getMe = (id, callback) => {
+    const query =  `
+        SELECT * FROM user 
+        WHERE id = ?
+    `
+    const value = [id];
+
+    pool.query(query, value, (err, row) => {
+        if(err){
+            callback(err)
+            return;
+        }
+        return callback(err, row)
+    })
+}
 exports.getAllUsers = (callback) => {
     const query = `
         SELECT * FROM user
@@ -81,3 +97,4 @@ exports.logIn = (email, password, callback) => {
         return callback(null, data);
     })
 }
+

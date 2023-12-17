@@ -20,8 +20,20 @@ exports.createUser = (req, res) => {
 
 }
 
-exports.updateUser = (req, res) => {
+exports.getUser = (req, res) => {
+    const id = req.id;
 
+    console.log(id);
+    model.getMe(id, (err, row) => {//NB: the 'err' is not used, but it is mandatory to be there
+        // in other for the row array to be displayed
+
+        const {password, ...userDetails} = row[0];
+
+        res.status(200).send({
+            message: 'success',
+                userDetails
+        })
+    })
 }
 
 exports.invalidUrl = (req, res, next) => {
