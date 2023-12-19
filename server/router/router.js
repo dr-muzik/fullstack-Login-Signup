@@ -8,6 +8,7 @@ Router.route('/register')
     .post(authController.validation, authController.signup);
 
 Router.post('/login', authController.signIn);
+Router.get('/logout', authController.signOut)
 
 //protected route using jwt verification
 Router.get('/getAllUsers', authController.protectRoute, controller.getUsers);

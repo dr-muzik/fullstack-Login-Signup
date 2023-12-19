@@ -90,6 +90,16 @@ exports.signIn = (req, res, next) => {
     })
 }
 
+exports.signOut = (req, res, next) => {
+   const remove = res.clearCookie(process.env.COOKIE_TOKEN)
+   if(remove) {
+    return res.status(204).send({message: 'successfully cleared cookies'})
+   }
+    const message = 'something went wrong!';
+    const err = new CustomError(message, 200);
+    next(err);
+}
+
 exports.protectRoute = (req, res, next) => {
     const token = req.cookies.token;
     
