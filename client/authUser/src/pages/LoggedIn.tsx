@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState,  } from 'react'
-import { Link, useNavigate, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../StateContext/AuthContext'
 
 
 // type Props = {}
 
 const LoggedIn:React.FC = () => {
+    const { logout, setUser } = useAuth()
 
     const [name, setName] = useState("");
     const Navigate = useNavigate()
@@ -16,6 +18,7 @@ const LoggedIn:React.FC = () => {
             console.log(res.data.message);
             if(res?.data?.message === 'success'){
                 setName(res.data.userDetails.username);
+                setUser(res?.data?.userDetails)
             }
         })
         .catch(err => (
@@ -23,8 +26,10 @@ const LoggedIn:React.FC = () => {
         ))
     }, [])
 
-    const logout = () => {
+    const logoutHandler = () => {
+        setUser(null)
         axios.get("/api/v1/logout")
+        logout()
         Navigate('/login')
     }
 
@@ -32,7 +37,8 @@ const LoggedIn:React.FC = () => {
     <>
     
     <div>Welcome {name}</div>
-    <button type="submit" onClick={logout}><Link to={'/'}>Logout</Link></button>
+    <button type="submit" onClick={logoutHandler}><Link to={'/'}>Logout</Link></button>
+    <button type="button" ><Link to={'/profile'}>Profile</Link></button>
     </>
   )
 }

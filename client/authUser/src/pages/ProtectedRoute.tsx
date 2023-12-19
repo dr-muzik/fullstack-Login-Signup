@@ -1,20 +1,22 @@
 import React from 'react';
-import { Route, Navigate, Routes, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../StateContext/AuthContext';
 // import LoggedIn from './LoggedIn';
 
-interface ProtectedRouteProps {
-//   path: string;
-//   element: React.ReactNode;
-}
+// interface ProtectedRouteProps {
+// //   path: string;
+// //   element: React.ReactNode;
+// }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = () => {
+const ProtectedRoute: React.FC = () => {
   const { authState } = useAuth();
 
   return authState.isAuthenticated ? (
-    
-        // <Route path={path} element={element} />
+    <>
+        <h1>Welcome to your Dashboard</h1>
+        {/* // <Route path={path} element={element} /> */}
         <Outlet/>
+    </>
    
   ) : (
     <Navigate to="/login" />

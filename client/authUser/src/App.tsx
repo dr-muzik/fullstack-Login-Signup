@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import LoggedIn from './pages/LoggedIn';
 import ProtectedRoute from './pages/ProtectedRoute';
 import { AuthProvider } from './StateContext/AuthContext';
+import Unauthorized from './pages/Unauthorized';
+import Profile from './pages/Profile';
 
 
 const App = () => {
@@ -21,13 +23,15 @@ const App = () => {
         <Routes>
             <Route path='/' element={<MainLayout />}>
               <Route index element={<Register />} />
-              {/* <Route path="/loggedin" element={<ProtectedRoute element={<LoggedIn />} />} /> */}
-              <Route element={<ProtectedRoute />}>
+              <Route path='/unauthorised' element={<Unauthorized />} />
 
+              {/* protected routes */}
+              <Route element={<ProtectedRoute />}>
               <Route path={'/loggedin'} element={<LoggedIn />} />
+              <Route path={'/profile'} element={<Profile />} />
               </Route>
+
               <Route path='/login' element={<Login />} />
-              {/* <Route path='/loggedin' element={<LoggedIn />} /> */}
             </Route>
         </Routes>
      </Router>

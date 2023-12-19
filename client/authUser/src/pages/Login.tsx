@@ -28,7 +28,7 @@ const Login = () => {
         try {
             
             const result = await axios.post('/api/v1/login', input)
-            console.log(result?.data);
+            // setUser(result?.data);
             if(result.data.token){
                 navigate('/loggedIn');
                 login();
