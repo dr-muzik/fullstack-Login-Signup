@@ -1,3 +1,5 @@
+import '../styles/loggedin.css';
+
 import axios from 'axios'
 import React, { useEffect, useState,  } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,9 +9,9 @@ import { useAuth } from '../StateContext/AuthContext'
 // type Props = {}
 
 const LoggedIn:React.FC = () => {
-    const { logout, setUser } = useAuth()
+    const { logout, setUser, user } = useAuth()
 
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
     const Navigate = useNavigate()
 
     useEffect(()=>{
@@ -17,7 +19,7 @@ const LoggedIn:React.FC = () => {
         .then(res => {
             console.log(res.data.message);
             if(res?.data?.message === 'success'){
-                setName(res.data.userDetails.username);
+                // setName(res.data.userDetails.username);
                 setUser(res?.data?.userDetails)
             }
         })
@@ -33,10 +35,13 @@ const LoggedIn:React.FC = () => {
         Navigate('/login')
     }
 
+    //creating the serverUrl variable to be used in displaying the image in the client
+  const serverBaseUrl = 'http://localhost:8080';
+
   return (
     <>
-    
-    <div>Welcome {name}</div>
+    <div className='image'><img src={`${serverBaseUrl}${user?.image_url}`} alt="profile_pic" /></div>
+    <div>Welcome {user?.username}</div>
     <button type="submit" onClick={logoutHandler}><Link to={'/'}>Logout</Link></button>
     <button type="button" ><Link to={'/profile'}>Profile</Link></button>
     </>

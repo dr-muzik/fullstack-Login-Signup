@@ -12,6 +12,7 @@ interface IUser {
     lastname: string;
     username: string;
     email: string;
+    image_url: string;
 }
 
 interface AuthContextType {

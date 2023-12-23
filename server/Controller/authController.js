@@ -1,10 +1,12 @@
 const pool = require('../model/database');
+const fs = require('fs');
 const database = require('../model/dbModel');
 const catchAsync = require('../utils/catchAsync');
 const bcrypt = require('bcrypt');
 const CustomError = require('../utils/customError');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const path = require('path');
 
 // exports.signup = catchAsync(async (req, res, next) => {
     
@@ -22,13 +24,21 @@ require('dotenv').config();
     
 // })
 
+exports.getImageUrl = (req, res) => {
+    const filename = req.params.filename;
+    const readStream = fs.createReadStream(path.join(`${__dirname}/../`, 'uploads', filename))
+    readStream.pipe(res);
+    console.log(readStream.path)
+}
 
 exports.signup = (req, res, next) => {
     const {firstname, lastname, username, email, password} = req.body;
+    const { filename, path } = req.file;
 
-    
+    const image_url = `/v1/images/${filename}`
+    console.log(image_url);
 
-        database.registerUser(firstname, lastname, username, email, password,  (err, insertId) => {
+        database.registerUser(firstname, lastname, username, email, password, image_url, (err, insertId) => {
             if(err){
                 return next(err);
             }
@@ -40,6 +50,7 @@ exports.signup = (req, res, next) => {
                 lastname,
                 username,
                 email,
+                image_url
                 }
             })
         })
@@ -116,16 +127,19 @@ exports.protectRoute = (req, res, next) => {
 }
 
 exports.validation = (req, res, next) => {
-    const {password, confirmPassword, email} = req.body;
+    const {email, password, confirmPassword} = req.body;
+    console.log(email)
+    console.log(req.body)
 
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
     if (!email || !emailRegex.test(email)) {
     //   return res.status(400).json({ error: 'Invalid email address' });
-        // const message = "Invalid email address";
-        let err = {message: "Invalid email address"}
-        next(err);
+        const message = "Invalid email address";
+        // let err = {message: "Invalid email address"}
+        const error = new CustomError(message, 400);
+        next(error);
     }
     if(password?.length === 0 && confirmPassword?.length === 0){
         const message = "Password fields cannot be empty!";

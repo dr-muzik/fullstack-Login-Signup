@@ -3,18 +3,18 @@ const pool = require('./database');
 
 const saltRounds = 6;
 
-exports.registerUser = async (firstname, lastname, username, email, password, callback) => {
+exports.registerUser = async (firstname, lastname, username, email, password,image_url, callback) => {
     //creating the query in sql syntax
     const query = `
-        INSERT INTO user (firstname, lastname, username, email, password)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO user (firstname, lastname, username, email, password, image_url)
+        VALUES (?, ?, ?, ?, ?, ?)
     `
 
         //hash password and send every value to the database
         const encryptedPw = await bcrypt.hash(password.toString(), saltRounds)
 
         //the values for each column in the database
-        const values = [firstname, lastname, username, email, encryptedPw];
+        const values = [firstname, lastname, username, email, encryptedPw, image_url];
 
         pool.query(query, values, (err, result) => {
             if(err){

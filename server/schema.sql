@@ -10,3 +10,8 @@ CREATE TABLE user (
     password VARCHAR(128) NOT NULL,
     email VARCHAR(50)
 );
+
+ALTER TABLE user (
+    ADD created_at TIMESTAMP DEFAULT NOW(),
+    ADD image_url VARCHAR(225)
+)
