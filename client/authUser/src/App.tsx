@@ -10,6 +10,7 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import { AuthProvider } from './StateContext/AuthContext';
 import Unauthorized from './pages/Unauthorized';
 import Profile from './pages/Profile';
+import UpdateProfile from './pages/UpdateProfile';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
               <Route element={<ProtectedRoute />}>
               <Route path={'/loggedin'} element={<LoggedIn />} />
               <Route path={'/profile'} element={<Profile />} />
+              <Route path={'/updateProfile'} element={<UpdateProfile />} />
               </Route>
 
               <Route path='/login' element={<Login />} />

@@ -1,7 +1,28 @@
 img {
     border-radius: 100%;
-    border: 2px solid red;
+    border: 2px solid greenyellow;
     width: 100%;
     max-width: 200px;
     height: 200px;
+  }
+
+  .camIcon {
+    /* border: 2px solid red; */
+    /* width: 30px;
+    height: 30px; */
+    /* background-color: greenyellow; */
+    opacity: 0.5;
+    position: absolute;
+    bottom: 30px;
+    right: 330px;
+    
+    /* transform: translate(-100%); */
+  }
+  .camIcon:hover {
+    cursor: pointer;
+  }
+
+  .image {
+    position: relative;
+    border: 2px solid blue;
   }

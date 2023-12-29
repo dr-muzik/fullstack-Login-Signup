@@ -41,3 +41,28 @@ exports.invalidUrl = (req, res, next) => {
     const error = new customError(`${url} is an invalid url`, 400);
     next(error);
 }
+
+exports.updateUser = (req, res, next) => {
+   const id = req.id;
+   const {firstname, lastname, username, email} = req.body;
+   
+   console.log(req.body);
+   model.updateMe(firstname, lastname, username, email, id, (err, result) => {
+    if(err){
+        next(err)
+        return;
+    }
+    console.log(result);
+    res.status(200).send({
+        message: 'success',
+        user: {
+            id,
+            firstname,
+            lastname,
+            username,
+            email
+        }
+    })
+   })
+
+}

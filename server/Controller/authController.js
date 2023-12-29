@@ -126,6 +126,25 @@ exports.protectRoute = (req, res, next) => {
     })
 }
 
+exports.changeProfilePic = (req, res, next) => {
+    const {filename} = req.file;
+    const id = req.id;
+    console.log("from updateProfilePic", id)
+
+    const image_url = `/v1/images/${filename}`
+    database.profilePic(image_url, id, (err, result) => {
+        if(err){
+            next(err);
+        }
+        res.status(201).send({
+            message: 'changed successfully',
+            data: {
+                image_url
+            }
+        })
+    })
+}
+
 exports.validation = (req, res, next) => {
     const {email, password, confirmPassword} = req.body;
     console.log(email)

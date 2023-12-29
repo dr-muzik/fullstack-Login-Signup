@@ -6,7 +6,7 @@ interface AuthState {
 
 type AuthAction = { type: 'LOGIN' } | { type: 'LOGOUT' };
 
-interface IUser {
+export interface IUser {
     id: number;
     firstname: string;
     lastname: string;
@@ -19,7 +19,7 @@ interface AuthContextType {
   authState: AuthState;
   login: () => void;
   logout: () => void;
-  setUser: (arg: IUser | null ) => void;
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
   user: IUser | null;
 }
 

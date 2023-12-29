@@ -98,3 +98,33 @@ exports.logIn = (email, password, callback) => {
     })
 }
 
+exports.updateMe = (firstname, lastname, username, email, id, callback) => {
+    const query = `
+        update user
+        SET firstname = ?, lastname = ?, email = ?, username = ?
+        WHERE id = ?
+    `
+    const value = [firstname, lastname, email, username, id]
+    pool.query(query, value, (err, result) => {
+        if(err) {
+            callback(err)
+            return;
+        }
+        return callback(null, result);
+    })
+}
+
+exports.profilePic = (image_url, id, callback) => {
+    const query = `
+    update user
+    SET image_url = ?
+    WHERE id = ?
+    `
+
+    const value = [image_url, id]
+    pool.query(query, value, (err, result)=> {
+        if(err) return callback(err);
+
+        return callback(null, result);
+    })
+}
