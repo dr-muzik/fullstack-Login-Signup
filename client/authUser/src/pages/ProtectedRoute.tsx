@@ -19,7 +19,10 @@ const ProtectedRoute: React.FC = () => {
     </>
    
   ) : (
+    <>
+    {alert('not authenticated')}
     <Navigate to="/login" />
+    </>
   );
 };
 

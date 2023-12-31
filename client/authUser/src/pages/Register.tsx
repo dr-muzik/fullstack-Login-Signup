@@ -127,7 +127,7 @@ const Register = () => {
         </div>
         <div className="input-area">
           {/* <label htmlFor="form-input6">Confirm Password</label> */}
-          <input type="file" name="image" id="form-input6" onChange={(e: ChangeEvent<HTMLInputElement>) => setFile(e.target.files?.[0] || null)} />
+          <input type="file" name="image" onChange={(e: ChangeEvent<HTMLInputElement>) => setFile(e.target.files?.[0] || null)} />
         </div>
         <div className="btn">
           <button type="submit">Signup</button>

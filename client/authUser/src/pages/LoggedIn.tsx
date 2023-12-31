@@ -44,6 +44,7 @@ const LoggedIn:React.FC = () => {
     <div>Welcome {user?.username}</div>
     <button type="submit" onClick={logoutHandler}><Link to={'/'}>Logout</Link></button>
     <button type="button" ><Link to={'/profile'}>Profile</Link></button>
+    <button type="button" ><Link to={'/chat'}>Chat</Link></button>
     </>
   )
 }

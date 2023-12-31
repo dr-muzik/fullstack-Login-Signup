@@ -58,7 +58,7 @@ const Profile:React.FC = () => {
     <h3>{user?.username} profile</h3>
     
     <div className='image'>
- 
+    
       <img key={user?.id} src={`${serverBaseUrl}${user?.image_url}`} alt="profile_pic" />
       <label htmlFor="dp" className='camIcon'>
       {/* <div className="icon">

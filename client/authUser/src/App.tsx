@@ -11,6 +11,7 @@ import { AuthProvider } from './StateContext/AuthContext';
 import Unauthorized from './pages/Unauthorized';
 import Profile from './pages/Profile';
 import UpdateProfile from './pages/UpdateProfile';
+import Chat from './pages/Chat';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
               <Route path={'/loggedin'} element={<LoggedIn />} />
               <Route path={'/profile'} element={<Profile />} />
               <Route path={'/updateProfile'} element={<UpdateProfile />} />
+              <Route path={'/chat'} element={<Chat />} />
               </Route>
 
               <Route path='/login' element={<Login />} />
