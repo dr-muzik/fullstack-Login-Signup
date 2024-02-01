@@ -1,0 +1,51 @@
+.details {
+    .container {
+      padding-block: 50px;
+      .remark {
+        text-align: center;
+        margin-bottom: 60px;
+        & > h1 {
+          font-size: 80px;
+        }
+        & > p {
+          font-size: 40px;
+          font-style: italic;
+        }
+      }
+      .answers {
+        width: max-content;
+        //   margin: auto;
+  
+        .question {
+          margin-bottom: 20px;
+          .question-h3 {
+            font-size: 20px;
+          }
+          
+          .correct-wrong {
+            font-size: 14px;
+            .CA {
+              color: green;
+              font-size: 15px;
+  
+              padding-inline-end: 20px;
+            }
+            .ansC {
+              font-style: italic;
+              font-weight: 700;
+            }
+            .ansW {
+              font-style: italic;
+              font-weight: 500;
+            }
+            .WA {
+              color: red;
+              padding-inline-end: 20px;
+            }
+          }
+          
+        }
+      }
+    }
+  }
+  

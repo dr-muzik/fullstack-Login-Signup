@@ -1,0 +1,22 @@
+.updateProfile{
+    form{
+        text-align: center;
+        .form-container{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-width: 400px;
+            margin: auto;
+            label{
+                grid-column: 1;
+            }
+            input{
+                grid-column: 2;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px 20px;
+            }
+        }
+
+    }
+}

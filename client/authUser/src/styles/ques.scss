@@ -1,0 +1,21 @@
+.quesNans {
+    width: 645px;
+    height: 254px;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0.3em 0.3em 0.3em 0.5em rgba(0, 0, 0, 0.4);
+    background-color: white;
+  
+    .ques {
+      width: 100%;
+      padding-block-end: 20px;
+    }
+    .ans {
+      & > p {
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  

@@ -14,13 +14,13 @@ interface IUser {
   }
   
 
-  interface Ireg {
-    images: FormData;
-    input: IUser[];
-  }
+  // interface Ireg {
+  //   images: FormData;
+  //   input: IUser[];
+  // }
 
 const Register = () => {
-    const [data, setData] = useState<Ireg[] | null>(null)
+    // const [data, setData] = useState<Ireg[] | null>(null)
     const [input, setInput] = useState<IUser[]>([{
         firstname: "",
         lastname: "",
@@ -98,44 +98,121 @@ const Register = () => {
       };
 
   return (
-    <>
-         <form action=""  onSubmit={submitHandler} method='post'>
-        <h1>Registration</h1>
-        <div className="input-area">
-          <label htmlFor="form-input1">Firstname</label>
-          <input type="text" name="firstname" id="form-input1" onChange={handleInputChange} />
+ 
+         
+
+      <div className="reg">
+      <form className="row g-3"  onSubmit={submitHandler} >
+        <h2 style={{textAlign: "center"}} className="text-primary-emphasis">Sign Up</h2>
+        <div className="col-md-12">
+          {/* <label htmlFor="inputEmail4" className="form-label">
+            FirstName
+          </label> */}
+          <input
+            type="text"
+            className="form-control"
+            id="firstname"
+            name="firstname"
+            placeholder="First Name"
+            required
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="input-area">
-          <label htmlFor="form-input2">Lastname</label>
-          <input type="text" name="lastname" id="form-input2" onChange={handleInputChange} />
+        <div className="col-md-12">
+          {/* <label htmlFor="inputPassword4" className="form-label">
+            LastName
+          </label> */}
+          <input
+            type="text"
+            className="form-control"
+            id="lastname"
+            name="lastname"
+            placeholder="Last Name"
+            required
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="input-area">
-          <label htmlFor="form-input3">Username</label>
-          <input type="text" name="username" id="form-input3" onChange={handleInputChange} />
+        <div className="col-md-12">
+          {/* <label htmlFor="username" className="form-label">
+            Username
+          </label> */}
+          <input
+            type="text"
+            className="form-control"
+            name="username"
+            id="username"
+            placeholder="UserName"
+            required
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="input-area">
-          <label htmlFor="form-input4">Email</label>
-          <input type="text" name="email" id="form-input4" onChange={handleInputChange} />
+        <div className="col-md-12">
+          {/* <label htmlFor="inputEmail4" className="form-label">
+            Email
+          </label> */}
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            placeholder="Email"
+            name="email"
+            required
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="input-area">
-          <label htmlFor="form-input5">Password</label>
-          <input type="password" name="password" id="form-input5" onChange={handleInputChange} />
+        <div className="col-md-6">
+          {/* <label htmlFor="inputPassword4" className="form-label">
+            Password
+          </label> */}
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="input-area">
-          <label htmlFor="form-input6">Confirm Password</label>
-          <input type="password" name="confirmPassword" id="form-input6" onChange={handleInputChange} />
+        <div className="col-md-6">
+          {/* <label htmlFor="inputPassword4" className="form-label">
+            Password
+          </label> */}
+          <input
+            type="password"
+            className="form-control"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="confirm password"
+            required
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="input-area">
-          {/* <label htmlFor="form-input6">Confirm Password</label> */}
-          <input type="file" name="image" onChange={(e: ChangeEvent<HTMLInputElement>) => setFile(e.target.files?.[0] || null)} />
+        <div className="col-md-12">
+        <input type="file" name="image" onChange={(e: ChangeEvent<HTMLInputElement>) => setFile(e.target.files?.[0] || null)} />
         </div>
-        <div className="btn">
-          <button type="submit">Signup</button>
-        </div>
-        <p>Already have an account? <Link to={'/login'} >Login</Link></p>
+       
         
+        {/* <div className="col-md-6">
+          <label htmlFor="inputCity" className="form-label">
+            City
+          </label>
+          <input type="text" className="form-control" id="inputCity" />
+        </div> */}
+       
+   
+        
+        <div className="col-12">
+          <button type="submit" className="btn btn-primary col-12 p-3">
+            Sign up
+          </button>
+        </div>
+      <p>
+        Already have an account? <Link to="/login">Sign in</Link>
+      </p>
       </form>
-    </>
+    </div>
+   
   )
 }
 

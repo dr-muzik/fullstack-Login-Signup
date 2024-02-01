@@ -1,0 +1,25 @@
+.login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    place-items: center;
+    // transform: translate(50%, 4%);
+    border: 2px solid gray;
+    padding: auto;
+    
+    
+    form {
+      height: min-content;
+      padding: 30px;
+      background-color: rgb(173, 213, 250);
+      max-width: 500px;
+      .form-control {
+        font-size: 16px;
+        padding-block: 10px;
+        &::placeholder {
+          color: rgba(180, 176, 176, 0.623);
+        }
+      }
+    }
+  }

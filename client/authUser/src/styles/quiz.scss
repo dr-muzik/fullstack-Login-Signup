@@ -1,0 +1,16 @@
+#Quiz{
+    ul{
+        li{
+            cursor: pointer;
+        }
+    }
+    .show-setup {
+        border: 2px solid red;
+        width: 100%;
+        max-width: 500px;
+        // display: flex;
+    }
+    .hide {
+        display: none;
+    }
+}

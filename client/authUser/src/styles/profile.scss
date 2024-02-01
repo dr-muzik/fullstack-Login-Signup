@@ -1,0 +1,40 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    .profileImage{
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        img{
+
+            border-radius: 100%;
+            border: 2px solid greenyellow;
+            width: 100%;
+            max-width: 200px;
+            height: 200px;
+        }
+        .ProfilecamIcon {
+
+        }
+    }
+    table {
+        // border-collapse:separate;
+        width: 100%;
+        max-width: 500px;
+        tr:nth-child(even) {
+            background-color: #ddd;
+        }
+        td, th{
+            padding: 10px 20px;
+            // border: 1px solid #919090;
+        }
+    }
+    .profile-btn {
+        width: 100%;
+        max-width: 500px;
+        // border: 1px solid #919090;
+        // color: white;
+        margin-top: 30px;
+    }
+}

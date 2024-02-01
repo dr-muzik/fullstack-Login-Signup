@@ -30,7 +30,7 @@ const Login = () => {
             const result = await axios.post('/api/v1/login', input)
             // setUser(result?.data);
             if(result.data.token){
-                navigate('/loggedIn');
+                navigate('/dashboard/loggedIn');
                 login();
             }
      
@@ -51,26 +51,50 @@ const Login = () => {
     }
 
   return (
-    <div>
-         <form action=""  onSubmit={submitHandler}>
-        <h1>Login</h1>
-       
-        <div className="input-area">
-          <label htmlFor="form-input">Email</label>
-          <input type="text" name="email" id="form-input" onChange={handleInputChange} />
+    
+
+      <div className="login">
+      <form action="" className="row g-3" onSubmit={submitHandler}>
+        <h2 style={{textAlign: "center"}}>Login</h2>
+        <div className="col-md-12">
+          <label htmlFor="inputUsername" className="form-label">
+            Username:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputUsername"
+            name="email"
+            placeholder="Email"
+            onChange={handleInputChange} 
+          />
         </div>
-        <div className="input-area">
-          <label htmlFor="form-input">Password</label>
-          <input type="text" name="password" id="form-input" onChange={handleInputChange} />
+        <div className="col-md-12">
+          <label htmlFor="inputPassword" className="form-label">
+            Password:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputPassword"
+            name="password"
+            placeholder="Enter password"
+            onChange={handleInputChange} 
+          />
         </div>
-        
-        <div className="btn">
-          <button type="submit">login</button>
+        <div className="d-grid gap-2">
+   
+            <button className="btn btn-primary col-12 p-3" type="submit">
+              LOGIN
+            </button>
+     
         </div>
-        <p>Don't have an account? <Link to={'/'} >Register</Link></p>
-        
+        <p>
+          Don't have an account yet? <Link to="/">Signup</Link>
+        </p>
       </form>
     </div>
+    
   )
 }
 

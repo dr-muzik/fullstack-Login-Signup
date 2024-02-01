@@ -54,18 +54,18 @@ const Profile:React.FC = () => {
     // console.log("image to show: ", user);
 
   return (
-    <>
-    <h3>{user?.username} profile</h3>
+    <div className='profile'>
+      <h2>{user?.username} profile</h2>
     
-    <div className='image'>
+      <div className='profileImage'>
     
-      <img key={user?.id} src={`${serverBaseUrl}${user?.image_url}`} alt="profile_pic" />
-      <label htmlFor="dp" className='camIcon'>
-      {/* <div className="icon">
-      </div> */}
-      <FontAwesomeIcon icon={faCamera} style={{ color: 'green', fontSize: '2.5em' }} />
-      <input type="file" name="image" id="dp" style={{display: 'none'}} onChange={active} />
-      </label>
+          <img key={user?.id} src={`${serverBaseUrl}${user?.image_url}`} alt="profile_pic" />
+          <label htmlFor="dp" className='ProfilecamIcon'>
+          {/* <div className="icon">
+          </div> */}
+          <FontAwesomeIcon icon={faCamera} style={{ color: 'green', fontSize: '2.5em' }} />
+          <input type="file" name="image" id="dp" style={{display: 'none'}} onChange={active} />
+          </label>
       </div>
         <table>
             <tr>
@@ -88,9 +88,11 @@ const Profile:React.FC = () => {
             <td>{user?.email}</td>
             </tr>
         </table>
-        <button style={{marginInlineEnd: '20px'}}><Link to='/loggedin'>Back</Link></button>
-        <button><Link to='/updateProfile'>update details</Link></button>
-    </>
+        <div className="profile-btn">
+
+          <button className='btn btn-primary text-bg-light'><Link to='/dashboard/updateProfile'>update details</Link></button>
+        </div>
+    </div>
   )
 }
 

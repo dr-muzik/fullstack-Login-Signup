@@ -25,6 +25,15 @@ io.on('connection', socket => {
     users[userId] = socket.id;
   });
 
+  // upon connection - only to user
+  socket.emit('welcome', "welcome to chat app");
+
+  //upon connection - to all others except user that just connected
+  socket.on('getUsername', (user) => {
+    console.log(user);
+      socket.broadcast.emit('others', `User ${user} is connected`)
+  })
+
 
     //connecting users
     socket.on('message', data => {

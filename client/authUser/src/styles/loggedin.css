@@ -2,8 +2,8 @@ img {
     border-radius: 100%;
     border: 2px solid greenyellow;
     width: 100%;
-    max-width: 200px;
-    height: 200px;
+    max-width: 100px;
+    height: 100px;
   }
 
   .camIcon {

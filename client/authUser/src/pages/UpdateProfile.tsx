@@ -52,38 +52,40 @@ const UpdateProfile = () => {
 
 
   return (
-    <>
-    <Link to={'/loggedin'}>back</Link>
+    <div className='updateProfile'>
+    {/* <Link to={'/loggedin'}>back</Link> */}
     <form action=""  onSubmit={submitHandler} method='post'>
     <h3>Update profile</h3>
 
-    <div className="input-area">
+    <div className="form-container">
+
       <label htmlFor="form-input1">Firstname</label>
       <input type="text" name="firstname" value={newData?.firstname} id="form-input1" onChange={handleInputChange} />
-    </div>
-    <div className="input-area">
+    
+    
       <label htmlFor="form-input2">Lastname</label>
       <input type="text" name="lastname" value={newData?.lastname}  id="form-input2" onChange={handleInputChange} />
-    </div>
-    <div className="input-area">
+    
+    
       <label htmlFor="form-input3">Username</label>
       <input type="text" name="username" value={newData?.username}  id="form-input3" onChange={handleInputChange} />
-    </div>
-    <div className="input-area">
+    
+    
       <label htmlFor="form-input4">Email</label>
       <input type="text" name="email" value={newData?.email}  id="form-input4" onChange={handleInputChange} />
-    </div>
+    
    
-    {/* <div className="input-area">
+    </div>
+    {/* 
       <input type="file" name="image" id="form-input6" onChange={(e: ChangeEvent<HTMLInputElement>) => setFile(e.target.files?.[0] || null)} />
-    </div> */}
+     */}
     <div className="btn">
       <button type="submit">update</button>
     </div>
     
     
   </form>
-    </>
+    </div>
   )
 }
 

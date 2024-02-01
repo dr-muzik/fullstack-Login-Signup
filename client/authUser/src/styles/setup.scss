@@ -1,0 +1,21 @@
+#Quiz-setup{
+    .form-container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-width: 500px;
+        margin: auto;
+        label{
+            grid-column: 1;
+        }
+        .right-grid{
+            grid-column: 2;
+            width: 100%;
+            box-sizing: border-box;
+            select{
+                padding-inline: 40px;
+                padding-block: 10px;
+            }
+        }
+    }
+}
